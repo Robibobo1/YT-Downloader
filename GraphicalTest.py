@@ -10,7 +10,7 @@ from cgitb import grey
 win = Tk()
 
 # Set the geometry of tkinter frame
-win.geometry("500x300")
+win.geometry("500x330")
 
 choice = IntVar()
 
@@ -22,7 +22,7 @@ def open_file():
 def main_fct():
     test = 0
 
-frame = Frame(master=win, width=500, height=300)
+frame = Frame(master=win, width=500, height=330,bg="grey")
 frame.pack()
 
 lblAdresse = Label(master=frame, text="Adresse de la chaîne: ")
@@ -64,5 +64,8 @@ lblConsole1.place(x=30,y=220)
 
 lblConsole2 = Label(master=frame)
 lblConsole2.place(x=30,y=250)
+
+lblConsole3 = Label(master=frame)
+lblConsole3.place(x=30,y=280)
 
 win.mainloop()
