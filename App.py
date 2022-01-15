@@ -1,5 +1,4 @@
 # Import the required Libraries
-from appFct import downloadNumber
 from tkinter import *
 from pytube import YouTube
 from pytube import Channel
@@ -14,6 +13,7 @@ win = Tk()
 
 
 # Set the geometry of tkinter frame
+win.title("YT Channel Downloader")
 win.geometry("500x330")
 
 choice = IntVar()
@@ -89,7 +89,7 @@ def downloadNumber(c):
     for video in c.videos:
         highresvid = video.streams.get_highest_resolution()
         lblConsole3.config(text=highresvid)
-        highresvid.download()
+        highresvid.download(txtDossier.get())
         x = x + 1
         lblConsole2.config(text="Vidéos téléchargées: " + str(x))
         if x >= int(txtNbrVid.get()) :
@@ -102,7 +102,7 @@ def downloadAll(c):
     for video in c.videos:
         highresvid = video.streams.get_highest_resolution()
         lblConsole3.config(text=highresvid)
-        highresvid.download()
+        highresvid.download(txtDossier.get())
         x = x + 1
         lblConsole2.config(text="Vidéos téléchargées: " + str(x))
     lblStatus.config(bg="green")
