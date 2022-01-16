@@ -18,9 +18,9 @@ for video in c.videos:
         try:
             video = YouTube("https://www.youtube.com/watch?v=y1MNj_LZ3aU&ab_channel=AngeMomoneetDavid")
             res = video.streams.filter(progressive=True).get_by_resolution("480p")
-            res.download()
+            res.download(r'/mnt/Main_Pool/Media/BackupYoutube/David')
         except:
             video = YouTube("https://www.youtube.com/watch?v=y1MNj_LZ3aU&ab_channel=AngeMomoneetDavid")
             res = video.streams.filter(progressive=True).get_by_resolution("360p")
-            res.download()
+            res.download(r'/mnt/Main_Pool/Media/BackupYoutube/David')
     

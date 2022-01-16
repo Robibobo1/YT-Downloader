@@ -100,7 +100,7 @@ def downloadAll(c):
     lblConsole1.config(text="Télecharge toute les vidéos de la chaîne: " + str(c.channel_name))
     x = 0
     for video in c.videos:
-        highresvid = video.streams.filter(progressive=True).get_highest_resolution()
+        highresvid = video.streams.get_highest_resolution()
         lblConsole3.config(text=highresvid)
         highresvid.download(txtDossier.get())
         x = x + 1
