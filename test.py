@@ -1,18 +1,19 @@
 # importing the module
+from importlib.resources import path
+import os
+from pickle import TRUE
 from pytube import YouTube
 from http.client import IncompleteRead
+path = r'C:\Users\robin\Desktop\DAVID'
 
-# where to save
-try: 
-    YouTube("https://www.youtube.com/watch?v=y1MNj_LZ3aU&ab_channel=AngeMomoneetDavid").streams.get_highest_resolution().download()
-except IncompleteRead:
-    try:
-        video = YouTube("https://www.youtube.com/watch?v=y1MNj_LZ3aU&ab_channel=AngeMomoneetDavid")
-        res = video.streams.filter(progressive=True).get_by_resolution("480p")
-        res.download()
-    except:
-        video = YouTube("https://www.youtube.com/watch?v=y1MNj_LZ3aU&ab_channel=AngeMomoneetDavid")
-        res = video.streams.filter(progressive=True).get_by_resolution("360p")
-        res.download()
-    
+# where to save 
+yt = YouTube("https://www.youtube.com/watch?v=fzvDI7XZ5vM&ab_channel=AngeMomoneetDavid")
+dateObject = yt.publish_date
+titre = yt.title
+print(titre)
+date = dateObject.strftime("%d-%m-%Y")
+yt = yt.streams.get_highest_resolution()
+yt.download(output_path = path,filename_prefix=date + " ")
+
+
 

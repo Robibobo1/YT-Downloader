@@ -1,10 +1,10 @@
 # Import the required Libraries
+import os
 from tkinter import *
 from pytube import YouTube
 from pytube import Channel
 from tkinter import ttk, filedialog
 from tkinter.filedialog import askopenfile
-from test.test_math import file
 from turtledemo.colormixer import setbgcolor
 from cgitb import grey
 
@@ -29,6 +29,7 @@ lblAdresse = Label(master=frame, text="Adresse de la chaîne: ")
 lblAdresse.place(x=30,y=30)
 
 txtAdresse = Entry(master=frame,width=50)
+txtAdresse.insert(0,"https://www.youtube.com/channel/UCF7hvVfLWDNuecBuhKxLjHA")
 txtAdresse.place(x=160,y=30)
 
 lblDossier = Label(master=frame, text="Dossier d'installation: ")
@@ -38,6 +39,7 @@ btnBrowse = Button(master=frame, text="Browse")
 btnBrowse.place(x=160,y=57)
 
 txtDossier = Entry(master=frame,width=40)
+txtDossier.insert(0,r"C:\Users\robin\Desktop\DAVID")
 txtDossier.place(x=220,y=60)
 
 lblType = Label(master=frame,text="Type d'installation: ")
@@ -47,6 +49,7 @@ radNbrVid = Radiobutton(master=frame,text="Nombre de vidéos",variable=choice,va
 radNbrVid.place(x=150,y=90)
 
 txtNbrVid = Entry(master=frame,width=5,text="0")
+txtNbrVid.insert(0,"1")
 txtNbrVid.place(x=280,y=93)
 
 radAll = Radiobutton(master=frame,text="Toute la chaîne",variable=choice,value=1)
@@ -66,16 +69,13 @@ lblConsole3 = Label(master=frame,text="-")
 lblConsole3.place(x=30,y=280)
 
 def main_fct():
-    try:
-        c = Channel(txtAdresse.get())
-        lblStatus.config(bg="yellow")
-        if choice.get() == 0:
-            downloadNumber(c)
-        if choice.get() == 1:
-            downloadAll(c)
-    except:
-        lblConsole1.config(text="Mauvais lien Youtube")
-        lblStatus.config(bg="red")
+
+    c = Channel(txtAdresse.get())
+    lblStatus.config(bg="yellow")
+    if choice.get() == 0:
+        downloadNumber(c)
+    if choice.get() == 1:
+         downloadAll(c)
     
 def open_file():
    file = filedialog.askdirectory()
@@ -87,9 +87,10 @@ def downloadNumber(c):
     lblConsole1.config(text="Télécharge " + txtNbrVid.get() + " vidéos de la chaîne: " + str(c.channel_name))
     x = 0
     for video in c.videos:
+        date = video.publish_date.strftime("%d-%m-%Y")
         highresvid = video.streams.filter(progressive=True).get_highest_resolution()
         lblConsole3.config(text=highresvid)
-        highresvid.download(txtDossier.get())
+        highresvid.download(output_path=txtDossier.get(),filename_prefix=date + " ")
         x = x + 1
         lblConsole2.config(text="Vidéos téléchargées: " + str(x))
         if x >= int(txtNbrVid.get()) :
@@ -100,9 +101,10 @@ def downloadAll(c):
     lblConsole1.config(text="Télecharge toute les vidéos de la chaîne: " + str(c.channel_name))
     x = 0
     for video in c.videos:
+        date = video.publish_date.strftime("%d-%m-%Y")
         highresvid = video.streams.filter(progressive=True).get_highest_resolution()
         lblConsole3.config(text=highresvid)
-        highresvid.download(txtDossier.get())
+        highresvid.download(output_path=txtDossier.get(),filename_prefix=date + " ")
         x = x + 1
         lblConsole2.config(text="Vidéos téléchargées: " + str(x))
     lblStatus.config(bg="green")
