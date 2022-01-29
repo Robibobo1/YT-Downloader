@@ -7,20 +7,21 @@ from http.client import IncompleteRead
 c = Channel('https://www.youtube.com/channel/UCF7hvVfLWDNuecBuhKxLjHA')
 print("Télecharge toute les vidéos de la chaîne: " + str(c.channel_name) + r"")
 for video in c.videos:
+    date = video.publish_date.strftime("%Y-%m-%d")
     try:
         highresvid = video.streams.filter(progressive=True).get_highest_resolution()
         print(highresvid.title.encode("utf-8"))
         print(highresvid)
         print("")
-        highresvid.download(r'/mnt/Main_Pool/Media/BackupYoutube/David')
+        highresvid.download(r'/mnt/Main_Pool/Media/BackupYoutube/David',filename_prefix=date + " ")
     except IncompleteRead:
         print(r"Erreur quelquonque, video de moins bonne qualite")
         try:
             video = YouTube("https://www.youtube.com/watch?v=y1MNj_LZ3aU&ab_channel=AngeMomoneetDavid")
             res = video.streams.filter(progressive=True).get_by_resolution("480p")
-            res.download(r'/mnt/Main_Pool/Media/BackupYoutube/David')
+            res.download(r'/mnt/Main_Pool/Media/BackupYoutube/David',filename_prefix=date + " ")
         except:
             video = YouTube("https://www.youtube.com/watch?v=y1MNj_LZ3aU&ab_channel=AngeMomoneetDavid")
             res = video.streams.filter(progressive=True).get_by_resolution("360p")
-            res.download(r'/mnt/Main_Pool/Media/BackupYoutube/David')
+            res.download(r'/mnt/Main_Pool/Media/BackupYoutube/David',filename_prefix=date + " ")
     
